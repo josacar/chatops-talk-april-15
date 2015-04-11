@@ -1,0 +1,548 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KOMA-Script Presentation
+% LaTeX Template
+% Version 1.0 (3/3/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original Authors:
+% Marius Hofert (marius.hofert@math.ethz.ch)
+% Markus Kohm (komascript@gmx.info)
+% Described in the PracTeX Journal, 2010, No. 2
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%saPACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+paper=128mm:96mm, % The same paper size as used in the beamer class
+fontsize=11pt, % Font size
+pagesize, % Write page size to dvi or pdf
+parskip=half-, % Paragraphs separated by half a line
+]{scrartcl} % KOMA script (article)
+
+\linespread{1.12} % Increase line spacing for readability
+
+%------------------------------------------------
+% Colors
+\usepackage{xcolor} % Required for custom colors
+% Define a few colors for making text stand out within the presentation
+\definecolor{mygreen}{RGB}{44,85,17}
+\definecolor{myblue}{RGB}{34,31,217}
+\definecolor{mybrown}{RGB}{194,164,113}
+\definecolor{myred}{RGB}{255,66,56}
+% Use these colors within the presentation by enclosing text in the commands below
+\newcommand*{\mygreen}[1]{\textcolor{mygreen}{#1}}
+\newcommand*{\myblue}[1]{\textcolor{myblue}{#1}}
+\newcommand*{\mybrown}[1]{\textcolor{mybrown}{#1}}
+\newcommand*{\myred}[1]{\textcolor{myred}{#1}}
+%------------------------------------------------
+
+%------------------------------------------------
+% Margins
+\usepackage[ % Page margins settings
+includeheadfoot,
+top=3.5mm,
+bottom=3.5mm,
+left=5.5mm,
+right=5.5mm,
+headsep=6.5mm,
+footskip=8.5mm
+]{geometry}
+%------------------------------------------------
+
+%------------------------------------------------
+% Fonts
+\usepackage[T1]{fontenc} % For correct hyphenation and T1 encoding
+\usepackage{lmodern} % Default font: latin modern font
+%\usepackage{fourier} % Alternative font: utopia
+%\usepackage{charter} % Alternative font: low-resolution roman font
+\renewcommand{\familydefault}{\sfdefault} % Sans serif - this may need to be commented to see the alternative fonts
+%------------------------------------------------
+
+%------------------------------------------------
+% Various required packages
+\usepackage{amsthm} % Required for theorem environments
+\usepackage{bm} % Required for bold math symbols (used in the footer of the slides)
+\usepackage{graphicx} % Required for including images in figures
+\usepackage{tikz} % Required for colored boxes
+\usepackage{booktabs} % Required for horizontal rules in tables
+\usepackage{multicol} % Required for creating multiple columns in slides
+\usepackage{lastpage} % For printing the total number of pages at the bottom of each slide
+\usepackage[english]{babel} % Document language - required for customizing section titles
+\usepackage{microtype} % Better typography
+\usepackage{tocstyle} % Required for customizing the table of contents
+\usepackage{minted} % Code listings
+\newmintedfile[coffee]{coffee}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
+\newmintedfile[ruby]{ruby}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
+\newmintedfile[python]{python}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
+%------------------------------------------------
+
+%------------------------------------------------
+% Slide layout configuration
+\usepackage{scrpage2} % Required for customization of the header and footer
+\pagestyle{scrheadings} % Activates the pagestyle from scrpage2 for custom headers and footers
+\clearscrheadfoot % Remove the default header and footer
+\setkomafont{pageheadfoot}{\normalfont\color{black}\sffamily} % Font settings for the header and footer
+
+% Sets vertical centering of slide contents with increased space between paragraphs/lists
+\makeatletter
+\renewcommand*{\@textbottom}{\vskip \z@ \@plus 1fil}
+\newcommand*{\@texttop}{\vskip \z@ \@plus .5fil}
+\addtolength{\parskip}{\z@\@plus .25fil}
+\makeatother
+
+% Remove page numbers and the dots leading to them from the outline slide
+\makeatletter
+\newtocstyle[noonewithdot]{nodotnopagenumber}{\settocfeature{pagenumberbox}{\@gobble}}
+\makeatother
+\usetocstyle{nodotnopagenumber}
+
+\AtBeginDocument{\renewcaptionname{english}{\contentsname}{\Large Outline}} % Change the name of the table of contents
+%------------------------------------------------
+
+%------------------------------------------------
+% Header configuration - if you don't want a header remove this block
+\ihead{
+\hspace{-2mm}
+\begin{tikzpicture}[remember picture,overlay]
+\node [xshift=\paperwidth/2,yshift=-\headheight] (mybar) at (current page.north west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=2\headheight,top color=mygreen!64,bottom color=mygreen]{}; % Colored bar
+\node[below of=mybar,yshift=3.3mm,rectangle,shade,inner sep=0pt,minimum width=128mm,minimum height =1.5mm,top color=black!50,bottom color=white]{}; % Shadow under the colored bar
+shadow
+\end{tikzpicture}
+\color{white}\runninghead} % Header text defined by the \runninghead command below and colored white for contrast
+%------------------------------------------------
+
+%------------------------------------------------
+% Footer configuration
+% \newlength{\footheight}
+\setlength{\footheight}{8mm} % Height of the footer
+\addtokomafont{pagefoot}{\footnotesize} % Small font size for the footnote
+
+\ifoot{% Left side
+\hspace{-2mm}
+\begin{tikzpicture}[remember picture,overlay]
+\node [xshift=\paperwidth/2,yshift=\footheight] at (current page.south west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=3pt,top color=mygreen,bottom color=mygreen]{}; % Green bar
+\end{tikzpicture}
+\myauthor\ \raisebox{0.2mm}{$\bm{\vert}$}\ \myuni % Left side text
+}
+
+\ofoot[\pagemark/\pageref{LastPage}\hspace{-2mm}]{\pagemark/\pageref{LastPage}\hspace{-2mm}} % Right side
+%------------------------------------------------
+
+%------------------------------------------------
+% Section spacing - deeper section titles are given less space due to lesser importance
+\usepackage{titlesec} % Required for customizing section spacing
+\titlespacing{\section}{0mm}{0mm}{0mm} % Lengths are: left, before, after
+\titlespacing{\subsection}{0mm}{0mm}{-1mm} % Lengths are: left, before, after
+\titlespacing{\subsubsection}{0mm}{0mm}{-2mm} % Lengths are: left, before, after
+\setcounter{secnumdepth}{0} % How deep sections are numbered, set to no numbering by default - change to 1 for numbering sections, 2 for numbering sections and subsections, etc
+%------------------------------------------------
+
+%------------------------------------------------
+% Theorem style
+\newtheoremstyle{mythmstyle} % Defines a new theorem style used in this template
+{0.5em} % Space above
+{0.5em} % Space below
+{} % Body font
+{} % Indent amount
+{\sffamily\bfseries} % Head font
+{} % Punctuation after head
+{\newline} % Space after head
+{\thmname{#1}\ \thmnote{(#3)}} % Head spec
+
+\theoremstyle{mythmstyle} % Change the default style of the theorem to the one defined above
+\newtheorem{theorem}{Theorem}[section] % Label for theorems
+\newtheorem{remark}[theorem]{Remark} % Label for remarks
+\newtheorem{algorithm}[theorem]{Algorithm} % Label for algorithms
+\makeatletter % Correct qed adjustment
+%------------------------------------------------
+
+%------------------------------------------------
+% The code for the box which can be used to highlight an element of a slide (such as a theorem)
+\newcommand*{\mybox}[2]{ % The box takes two arguments: width and content
+\par\noindent
+\begin{tikzpicture}[mynodestyle/.style={rectangle,draw=mygreen,thick,inner sep=2mm,text justified,top color=white,bottom color=white,above}]\node[mynodestyle,at={(0.5*#1+2mm+0.4pt,0)}]{ % Box formatting
+\begin{minipage}[t]{#1}
+#2
+\end{minipage}
+};
+\end{tikzpicture}
+\par\vspace{-1.3em}}
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%3emPRESENTATION INFORMATION
+%----------------------------------------------------------------------------------------
+
+\newcommand*{\mytitle}{ChatOps: Operations meet chat} % Title
+\newcommand*{\runninghead}{ChatOps: Operations meet chat} % Running head displayed on almost all slides
+\newcommand*{\myauthor}{Jose Luis Salas} % Presenters name(s)
+\newcommand*{\mydate}{\today} % Presentation date
+\newcommand*{\myuni}{Valencia DevOps -- April 2015} % University or department
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%documentTITLE SLIDE
+%----------------------------------------------------------------------------------------
+
+% Title slide - you may have to tweak a few of the numbers if you wish to make changes to the layout
+\thispagestyle{empty} % No slide header and footer
+\begin{tikzpicture}[remember picture,overlay] % Background box
+\node [xshift=\paperwidth/2,yshift=\paperheight/2] at (current page.south west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=\paperheight/3,top color=mygreen,bottom color=mygreen]{}; % Change the height of the box, its colors and position on the page here
+\end{tikzpicture}
+% Text within the box
+\begin{flushright}
+\vspace{0.6cm}
+\color{white}\sffamily
+{\bfseries\Large\mytitle\par} % Title
+\vspace{0.5cm}
+\normalsize
+\myauthor\par % Author name
+\mydate\par % Date
+\vfill
+\end{flushright}
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%clearpageTABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty} % No slide header and footer
+
+\small\tableofcontents % Change the font size and print the table of contents - it may be useful to shrink the font size further if the presentation is full of sections
+% To exclude sections/subsections from the table of contents, put an asterisk after \(sub)section like so: \section*{Section Name}
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%clearpagePRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+\section{About me}
+
+I'm Jose Luis Salas
+
+Work as SRE at peerTransfer
+
+Open source contributor: josacar/chef-babushka, josacar/lita-campfire, josacar/lita-jobs, fog/fog, sethvargo/chefspec, rumblelabs/asset\_sync, aetrion/chef-dnsimple, jesseadams/sphinx-cookbook, opscode-cookbooks/client-rekey, librato/papertrail-cookbook, sstephenson/ruby-build, hw-cookbooks/route53, josephruscio/twke, geokit/geokit, collectiveidea/tinder, berkshelf/berkshelf, librato/collectd-librato-cookbook, chef/ohai, opscode-cookbooks/rsyslog, peter-murach/github
+
+Twitter: @josacar
+
+GitHub: josacar
+
+\clearpage
+
+%------------------------------------------------
+
+\section{What is ChatOps}
+
+Doing Operations in a Chat tool
+
+\subsection{What does ChatOps provide?}
+
+\begin{enumerate}
+\item Everyone sees all of that happen since their first day
+\item Place tools in the middle of the conversation
+\item Teaching by doing by making things visible
+\item Communicate by doing
+\end{enumerate}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Questions I haven't asked since ChatOps}
+\begin{itemize}
+\item How is the deployment doing?
+\item Should I deploy or are you deploying that?
+\item Can I deploy to this environment?
+\item Is the smoke suite green?
+\item Is anyone checking the sensu alert?
+\item Has CI passed in that branch?
+\item Is the system load ok?
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\section{ChatOps in practice}
+\subsection{What do you need?}
+
+\begin{itemize}
+  \item A chat client: IRC, HipChat, Slack, Flowdock, and Campfire
+  \item Chat bots ( all FLOSS ):
+  \begin{itemize}
+    \item Hubot
+    \item Lita
+    \item Err
+  \end{itemize}
+\end{itemize}
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Hubot}
+\begin{itemize}
+\item Written in CoffeeScript and JavaScript
+\item Runs on top of NodeJS
+\item Created and used by GitHub
+\item Supports multiple chats: Campfire, Slack, HipChat
+\item Storage ( brain ) : Redis, PostgreSQL, MySQL
+\item Supports chat and HTTP routes
+\end{itemize}
+\clearpage
+
+%------------------------------------------------
+
+pugme.coffee
+\coffee{pugme.coffee}
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Lita}
+\begin{itemize}
+\item Written in Ruby ( requires Ruby >= 2.0 )
+\item Runs on top of MRI / JRuby / Rubinius
+\item Created by JimmyCuadra
+\item Supports multiple chats: Campfire, Slack, HipChat, IRC
+\item Storage: Redis
+\item Supports chat and HTTP routes
+\end{itemize}
+\clearpage
+
+%------------------------------------------------
+
+pugme.rb
+\ruby{pugme.rb}
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Err}
+\begin{itemize}
+\item Written in Python
+\item Runs on top of Python 2.7 and 3.2+
+\item Created by Guillaume Binet
+\item Supports multiple chats: Campfire, HipChat, IRC
+\item Storage ( brain ) : File
+\item Supports chat and HTTP routes
+\end{itemize}
+\clearpage
+
+%------------------------------------------------
+
+hello.py
+\python{hello.py}
+\clearpage
+
+%------------------------------------------------
+
+\section{Examples}
+\subsection{Nagios}
+\begin{itemize}
+  \item bot nagios ack database01/mysqld
+  \item bot nagios check database01/mysqld
+  \item bot nagios status database01/mysqld
+  \item bot nagios downtime database01/mysqld
+  \item bot nagios mute database01/mysqld
+  \item bot nagios unmute database01/mysqld
+\end{itemize}
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Deploying}
+\begin{itemize}
+  \item bot deploy myapp to prod/front01
+  \item bot log me smoke front01
+  \item bot status yellow Issue deploying.
+  \item bot lbctl disable front01
+  \item bot deploy myapp to prod/front01
+  \item bot log me smoke front01
+  \item bot status green Everything is ok.
+  \item bot lbctl enable front01
+\end{itemize}
+\clearpage
+
+%------------------------------------------------
+
+\subsection{More examples}
+\begin{itemize}
+\item bot pingdom checks
+\item bot who is on call
+\item bot conns loadbalancer
+\item bot graph me -10min @collectd.load(rabbitmq*)
+\item bot procs unicorn
+\item bot whois 1.2.3.4
+\item bot ci status rails/rails
+\item bot log me hooks front01
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+% How to include a theorem in this presentation:
+% \begin{verbatim}
+% \mybox{0.8\textwidth}{
+% \begin{theorem}[Murphy (1949)]
+% Anything that can go wrong, will go wrong.
+% \end{theorem}
+% }
+% \end{verbatim}
+
+% \clearpage
+
+%------------------------------------------------
+
+
+% \section{Displaying Information}
+
+% \clearpage
+
+%------------------------------------------------
+
+% \subsection{Table}
+
+% \begin{table}[h]
+% \centering
+% \begin{tabular}{l l l}
+% \toprule
+% \textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+% \midrule
+% Treatment 1 & 0.0003262 & 0.562 \\
+% Treatment 2 & 0.0015681 & 0.910 \\
+% Treatment 3 & 0.0009271 & 0.296 \\
+% \bottomrule
+% \end{tabular}
+% \caption{Table caption}
+% \end{table}
+
+% \clearpage
+
+%------------------------------------------------
+
+\subsection{ChatOps @ peerTransfer}
+
+\begin{figure}[h]
+\centering\includegraphics[width=0.8\linewidth]{cibuild.png}
+\end{figure}
+
+\clearpage
+
+%------------------------------------------------
+
+\begin{figure}[h]
+\centering\includegraphics[width=0.8\linewidth]{librato.png}
+\end{figure}
+
+\clearpage
+
+%------------------------------------------------
+
+\begin{figure}[h]
+\centering\includegraphics[width=0.8\linewidth]{pagerduty.png}
+\end{figure}
+
+\clearpage
+
+%------------------------------------------------
+
+\begin{figure}[h]
+\centering\includegraphics[width=1.0\linewidth]{papertrail.png}
+\end{figure}
+
+\clearpage
+
+%------------------------------------------------
+
+\begin{figure}[h]
+\centering\includegraphics[width=0.9\linewidth]{deploy.png}
+\end{figure}
+
+\clearpage
+
+%------------------------------------------------
+
+\begin{figure}[h]
+\centering\includegraphics[width=0.8\linewidth]{deploy_mono.png}
+\end{figure}
+
+\clearpage
+
+%------------------------------------------------
+
+% \subsection{Theorem}
+
+% The most common definition of \mygreen{Murphy's Law} is as follows.
+
+% \mybox{0.8\textwidth}{ % Example of encapsulating text in a colored box
+% \begin{theorem}[Murphy (1949)]
+% Anything that can go wrong, will go wrong.
+% \end{theorem}
+% }
+
+% \begin{proof}
+% A special case of this theorem is proven in the textbook.
+% \end{proof}
+
+% \begin{remark}
+% This is a remark.
+% \end{remark}
+
+% \begin{algorithm}
+% This is an algorithm.
+% \end{algorithm}
+
+% \clearpage
+
+%------------------------------------------------
+
+% \section{Citations}
+
+% An example of the \texttt{\textbackslash cite} command to cite within the presentation:
+
+% This statement requires citation \cite{Smith:2012qr}.
+
+% \clearpage
+
+%------------------------------------------------
+
+\thispagestyle{empty} % No slide header and footer
+
+\bibliographystyle{unsrt}
+\bibliography{sample}
+
+\clearpage
+
+%------------------------------------------------
+
+\thispagestyle{empty} % No slide header and footer
+
+\begin{tikzpicture}[remember picture,overlay] % Background box
+\node [xshift=\paperwidth/2,yshift=\paperheight/2] at (current page.south west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=\paperheight/3,top color=mygreen,bottom color=mygreen]{}; % Change the height of the box, its colors and position on the page here
+\end{tikzpicture}
+% Text within the box
+\begin{flushright}
+\vspace{0.6cm}
+\color{white}\sffamily
+{\bfseries\LARGE Questions?\par} % Request for questions text
+\vfill
+\end{flushright}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
