@@ -82,6 +82,7 @@ footskip=8.5mm
 \newmintedfile[coffee]{coffee}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
 \newmintedfile[ruby]{ruby}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
 \newmintedfile[python]{python}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
+\newminted{ruby}{mathescape, gobble=2, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
 %------------------------------------------------
 
 %------------------------------------------------
@@ -326,6 +327,45 @@ pugme.coffee
 
 %------------------------------------------------
 
+\begin{rubycode}
+  route(/^echo\s+(.+)/, :echo, command: true, restrict_to: [:testers, :committers], help: {
+    'echo TEXT' => 'Replies back with TEXT.'
+  })
+\end{rubycode}
+\begin{rubycode}
+  http.get "/builds/:id", :build_info
+
+  def build_info(request, response)
+    id = request.env["router.params"][:id]
+    build = MyBuildSystem.find(id)
+    response.headers["Content-Type"] = "application/json"
+    response.write(MultiJson.dump(build))
+  end
+\end{rubycode}
+\begin{rubycode}
+  on :connected, :greet
+  def greet(payload)
+    target = Source.new(room: payload[:room])
+    robot.send_message(target, "Hello #{payload[:room]}!")
+  end
+\end{rubycode}
+\begin{rubycode}
+  module Lita
+    module Handlers
+      class HandlerWithConfig < Handler
+        config :api_key
+        route(/call api/, command: true) do |response|
+          response.reply(ThirdPartyAPI.new(config.api_key).call)
+        end
+      end
+      Lita.register_handler(HandlerWithConfig)
+    end
+  end
+\end{rubycode}
+\clearpage
+
+%------------------------------------------------
+
 pugme.rb
 \ruby{pugme.rb}
 \clearpage
@@ -524,9 +564,22 @@ hello.py
 
 \thispagestyle{empty} % No slide header and footer
 
-\bibliographystyle{unsrt}
-\bibliography{sample}
+\section{Bibliography}
 
+\bibliographystyle{unsrt}
+http://www.pagerduty.com/blog/what-is-chatops/
+
+http://blog.librato.com/posts/fire-in-the-hole
+
+http://blog.librato.com/posts/confessions-of-a-chatbot
+
+http://slides.com/carolnichols/chatops
+
+http://tech.toptable.co.uk/blog/2013/11/22/beginning-a-journey-to-chatops-with-hubot/
+
+http://docs.lita.io/plugin-authoring/handlers/
+
+\bibliography{sample}
 \clearpage
 
 %------------------------------------------------
