@@ -229,11 +229,11 @@ shadow
 %clearpagePRESENTATION SLIDES
 %----------------------------------------------------------------------------------------
 
-\section{About me}
+\section{whoami}
 
 I'm Jose Luis Salas
 
-Work as SRE at peerTransfer
+Work as SRE at peerTransfer, programming in Ruby and Shell mostly
 
 Open source contributor: josacar/chef-babushka, josacar/lita-campfire, josacar/lita-jobs, fog/fog, sethvargo/chefspec, rumblelabs/asset\_sync, aetrion/chef-dnsimple, jesseadams/sphinx-cookbook, opscode-cookbooks/client-rekey, librato/papertrail-cookbook, sstephenson/ruby-build, hw-cookbooks/route53, josephruscio/twke, geokit/geokit, collectiveidea/tinder, berkshelf/berkshelf, librato/collectd-librato-cookbook, chef/ohai, opscode-cookbooks/rsyslog, peter-murach/github
 
@@ -271,6 +271,7 @@ Doing Operations in a Chat tool
 \item Is anyone checking the sensu alert?
 \item Has CI passed in that branch?
 \item Is the system load ok?
+\item Is anyone using this environment?
 \end{itemize}
 
 \clearpage
@@ -543,6 +544,23 @@ hello.py
 \vfill
 \end{flushright}
 
+\clearpage
+
 %----------------------------------------------------------------------------------------
+
+\thispagestyle{empty} % No slide header and footer
+
+\begin{tikzpicture}[remember picture,overlay] % Background box
+\node [xshift=\paperwidth/2,yshift=\paperheight/2] at (current page.south west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=\paperheight/2,top color=mygreen,bottom color=mygreen]{}; % Change the height of the box, its colors and position on the page here
+\end{tikzpicture}
+% Text within the box
+\begin{flushright}
+\vspace{0.6cm}
+\color{white}\sffamily
+{\bfseries\LARGE Thanks!\par}
+{\bfseries\LARGE Valencia DevOps\par}
+{\bfseries\LARGE April 2015\par}
+\vfill
+\end{flushright}
 
 \end{document}
