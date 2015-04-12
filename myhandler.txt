@@ -1,0 +1,18 @@
+Do you want to test your plugin on Travis CI? yes
+Do you want to generate code coverage information with SimpleCov and Coveralls.io? yes
+If your plugin's Git repository will be hosted on GitHub, build status and code coverage badges can be \
+automatically added to your README.
+Would you like to add these badges? ("yes" or "no", default is "no") yes
+What is your GitHub username? josacar
+      create  lita-myhandler/lib/lita/handlers/myhandler.rb
+      create  lita-myhandler/lib/lita-myhandler.rb
+      create  lita-myhandler/spec/lita/handlers/myhandler\_spec.rb
+      create  lita-myhandler/spec/spec\_helper.rb
+      create  lita-myhandler/locales/en.yml
+      create  lita-myhandler/templates/.gitkeep
+      create  lita-myhandler/Gemfile
+      create  lita-myhandler/lita-myhandler.gemspec
+      create  lita-myhandler/.gitignore
+      create  lita-myhandler/.travis.yml
+      create  lita-myhandler/Rakefile
+      create  lita-myhandler/README.md

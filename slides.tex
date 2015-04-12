@@ -82,6 +82,7 @@ footskip=8.5mm
 \newmintedfile[coffee]{coffee}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
 \newmintedfile[ruby]{ruby}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
 \newmintedfile[python]{python}{mathescape, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
+\newmintedfile[text]{text}{mathescape, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
 \newminted{ruby}{mathescape, gobble=2, linenos, numbersep=1pt, fontfamily=tt, fontsize=\tiny, frame=lines, framesep=3mm}
 %------------------------------------------------
 
@@ -322,11 +323,43 @@ pugme.coffee
 \item Supports multiple chats: Campfire, Slack, HipChat, IRC
 \item Storage: Redis
 \item Supports chat and HTTP routes
+\item Testable with RSpec
+\item Extensible using plugins through Bundler
 \end{itemize}
 \clearpage
 
 %------------------------------------------------
 
+\subsubsection{\$ lita new bot}
+\ruby{lita_config.rb}
+\clearpage
+
+%------------------------------------------------
+
+\ruby{Gemfile}
+\clearpage
+
+%------------------------------------------------
+
+\subsubsection{\$ lita handler myhandler }
+\text{myhandler.txt}
+\clearpage
+
+%------------------------------------------------
+
+lib/lita/handlers/myhandler.rb
+\ruby{myhandler.rb}
+\clearpage
+
+%------------------------------------------------
+
+spec/lita/handlers/myhandler\_spec.rb
+\ruby{myhandler_spec.rb}
+\clearpage
+
+%------------------------------------------------
+
+\subsubsection{Handler usage}
 \begin{rubycode}
   route(/^echo\s+(.+)/, :echo, command: true, restrict_to: [:testers, :committers], help: {
     'echo TEXT' => 'Replies back with TEXT.'
